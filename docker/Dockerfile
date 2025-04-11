@@ -34,5 +34,5 @@ RUN apk add --no-cache \
     curl
 
 COPY --from=builder /app/prez-ui/dist /srv
-COPY ./Caddyfile /etc/caddy/Caddyfile
+COPY ./docker/Caddyfile /etc/caddy/Caddyfile
 EXPOSE 3000
