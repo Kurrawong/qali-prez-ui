@@ -1,4 +1,4 @@
-ARG NUXT_PUBLIC_PREZ_API_ENDPOINT=https://prez-qali.dev.itp.cam.kurrawong.ai
+ARG NUXT_PUBLIC_PREZ_API_ENDPOINT=https://data-api.dev.qlocation.information.qld.gov.au
 ARG NODE_VERSION=20
 ARG PNPM_VERSION=9.0.5
 
@@ -18,11 +18,11 @@ RUN corepack enable && \
 
 WORKDIR /app
 
-RUN pnpm dlx create-prez-app@latest prez-ui \
-    && sed -i 's/workspace:\*/^4.0.0/' prez-ui/package.json \
-    && pnpm install --prefix prez-ui
+COPY --link package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
+COPY --link . .
 
-RUN cd prez-ui && NUXT_PUBLIC_PREZ_API_ENDPOINT=$NUXT_PUBLIC_PREZ_API_ENDPOINT pnpm generate
+RUN NUXT_PUBLIC_PREZ_API_ENDPOINT=$NUXT_PUBLIC_PREZ_API_ENDPOINT pnpm generate
 
 #
 # Final
@@ -33,6 +33,6 @@ RUN apk add --no-cache \
     # Used to perform health checks
     curl
 
-COPY --from=builder /app/prez-ui/dist /srv
+COPY --from=builder /app/.output/public /srv
 COPY ./docker/Caddyfile /etc/caddy/Caddyfile
 EXPOSE 3000

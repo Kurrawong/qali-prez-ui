@@ -1,0 +1,33 @@
+body, html {
+    color: hsl(var(--foreground));
+    background-color: hsl(var(--background));
+    font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+}
+
+h1:not(.heading h1), h2, h3:not(footer h3), h4, h5, h6 {
+    color: hsl(var(--primary));
+}
+
+a:not(.btn):not(.main-nav a):not(footer a):not(.heading a):not(.pre-header a) {
+    color: hsl(var(--link));
+}
+
+a:not(.btn):not(.main-nav a):not(header a) {
+    text-decoration: underline;
+}
+
+a:not(.btn):not(.main-nav a):not(header a):hover {
+    text-decoration: none !important;
+}
+
+.breadcrumbs a, .breadcrumbs svg {
+    color: white !important;
+}
+
+.breadcrumbs span {
+    color: #DEEBF9;
+}
